@@ -116,11 +116,12 @@ class DBSample(QMainWindow, Ui_MainWindow):
         self.connection.close()
 
 
+
 class MyWidget(QMainWindow, Ui_MainWindow_2):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.con = sqlite3.connect("coffee.sqlite")
+        self.con = sqlite3.connect(r"data\coffee.sqlite")
         self.pb_load.clicked.connect(self.update_result)
         self.tableWidget.itemChanged.connect(self.item_changed)
         self.pb_save.clicked.connect(self.save_results)
