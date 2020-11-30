@@ -1,15 +1,89 @@
 import sqlite3
 import sys
 
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class DBSample(QMainWindow):
+class Ui_MainWindow_2(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(794, 665)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.verticalLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 0, 771, 661))
+        self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
+        self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
+        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout.setObjectName("verticalLayout")
+        self.spinBox = QtWidgets.QSpinBox(self.verticalLayoutWidget)
+        self.spinBox.setObjectName("spinBox")
+        self.verticalLayout.addWidget(self.spinBox)
+        self.pb_load = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pb_load.setObjectName("pb_load")
+        self.verticalLayout.addWidget(self.pb_load)
+        self.pb_save = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.pb_save.setObjectName("pb_save")
+        self.verticalLayout.addWidget(self.pb_save)
+        self.tableWidget = QtWidgets.QTableWidget(self.verticalLayoutWidget)
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.verticalLayout.addWidget(self.tableWidget)
+        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.label.setGeometry(QtCore.QRect(5, 2, 31, 21))
+        self.label.setObjectName("label")
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pb_load.setText(_translate("MainWindow", "Загрузить"))
+        self.pb_save.setText(_translate("MainWindow", "Сохранить"))
+        self.label.setText(_translate("MainWindow", "ID:"))
+
+
+class Ui_MainWindow(object):
+    def setupUi(self, MainWindow):
+        MainWindow.setObjectName("MainWindow")
+        MainWindow.resize(800, 541)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
+        self.centralwidget.setObjectName("centralwidget")
+        self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
+        self.tableWidget.setGeometry(QtCore.QRect(0, 80, 801, 461))
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
+        self.textEdit.setGeometry(QtCore.QRect(0, 20, 481, 41))
+        self.textEdit.setObjectName("textEdit")
+        self.pb_run = QtWidgets.QPushButton(self.centralwidget)
+        self.pb_run.setGeometry(QtCore.QRect(490, 20, 151, 41))
+        self.pb_run.setObjectName("pb_run")
+        self.pb_editing = QtWidgets.QPushButton(self.centralwidget)
+        self.pb_editing.setGeometry(QtCore.QRect(650, 20, 141, 41))
+        self.pb_editing.setObjectName("pb_editing")
+        MainWindow.setCentralWidget(self.centralwidget)
+
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def retranslateUi(self, MainWindow):
+        _translate = QtCore.QCoreApplication.translate
+        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        self.pb_run.setText(_translate("MainWindow", "Запуск"))
+        self.pb_editing.setText(_translate("MainWindow", "Редактирование"))
+
+
+class DBSample(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
+        self.setupUi(self)
         self.connection = sqlite3.connect("coffee.sqlite")
         self.pb_run.clicked.connect(self.select_data)
         self.pb_editing.clicked.connect(self.start_editing)
@@ -42,10 +116,10 @@ class DBSample(QMainWindow):
         self.connection.close()
 
 
-class MyWidget(QMainWindow):
+class MyWidget(QMainWindow, Ui_MainWindow_2):
     def __init__(self):
         super().__init__()
-        uic.loadUi("addEditCoffeeForm.ui", self)
+        self.setupUi(self)
         self.con = sqlite3.connect("coffee.sqlite")
         self.pb_load.clicked.connect(self.update_result)
         self.tableWidget.itemChanged.connect(self.item_changed)
