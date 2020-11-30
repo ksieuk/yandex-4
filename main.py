@@ -84,7 +84,7 @@ class DBSample(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        self.connection = sqlite3.connect("coffee.sqlite")
+        self.connection = sqlite3.connect(r"data\coffee.sqlite")
         self.pb_run.clicked.connect(self.select_data)
         self.pb_editing.clicked.connect(self.start_editing)
         self.textEdit.setPlainText("SELECT * FROM coffee")
